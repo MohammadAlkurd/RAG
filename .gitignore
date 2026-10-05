@@ -1,0 +1,17 @@
+# Build output
+bin/
+obj/
+
+# IDE / tool local files
+.idea/
+.vs/
+*.user
+*.DotSettings.user
+.junie/
+.devin/config.local.json
+
+# Runtime data (uploaded textbooks, OCR output)
+data/
+
+# Debug output
+debug-output.txt
