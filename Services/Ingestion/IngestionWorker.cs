@@ -1,6 +1,10 @@
+using RAG.Services.Ocr;
+using RAG.Services.LocalPaths;
 namespace RAG.Services.Ingestion;
 
-public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,ILogger<IngestionWorker> logger) :BackgroundService
+public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
+    ILogger<IngestionWorker> logger,
+    IDocumentParser parser) :BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -14,7 +18,11 @@ public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,ILogge
                 status.Set(IngestionState.UnloadingLlm);
                 await Task.Delay(1000, stoppingToken);
                 status.Set(IngestionState.Ocr);
-                await Task.Delay(1000, stoppingToken);
+                var mdPath = DocumentPaths.Markdown(job.ContentHash);
+                if (File.Exists(mdPath))
+                    logger.LogInformation("OCR cached for {Hash}", job.ContentHash);
+                else
+                    await parser.ConvertToMarkdownAsync(job.FilePath, mdPath, stoppingToken);
                 status.Set(IngestionState.Chunking);
                 await Task.Delay(1000, stoppingToken);
                 status.Set(IngestionState.Embedding);

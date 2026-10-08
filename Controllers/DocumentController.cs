@@ -1,5 +1,7 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using RAG.Services.Ingestion;
+using RAG.Services.LocalPaths;
 using RAG.Services.PdfTools;
 
 namespace RAG.Controllers;
@@ -23,16 +25,18 @@ public class DocumentController(IngestionStatus status , IngestionQueue queue) :
         if (!check.IsValid)
             return BadRequest(check.Error);
 
+        var hash = Convert.ToHexString(await SHA256.HashDataAsync(stream)).ToLowerInvariant();
+        stream.Position = 0;
+        
         var jobId = Guid.NewGuid();
-        var dir = Path.Combine("data", "uploads");
-        Directory.CreateDirectory(dir);
-        var path = Path.Combine(dir, $"{jobId}.pdf");
+        Directory.CreateDirectory(DocumentPaths.UploadsDir);
+        var path = DocumentPaths.Upload(jobId);
 
         await using( var output = System.IO.File.Create(path)){
             await stream.CopyToAsync(output);
         }
 
-        var res = queue.TryEnqueue( new IngestionJob(jobId, file.FileName, path));
+        var res = queue.TryEnqueue( new IngestionJob(jobId,hash, file.FileName, path));
         if(res)
              return Accepted(new {JobId = jobId});
         System.IO.File.Delete(path);
@@ -40,7 +44,7 @@ public class DocumentController(IngestionStatus status , IngestionQueue queue) :
     }
     
     [HttpGet("status")]
-    public ActionResult GetDocumentStatus()
+    public ActionResult<IngestionSnapshot> GetDocumentStatus()
     {
         return Ok(status.Current);
     }
