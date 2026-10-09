@@ -15,6 +15,7 @@ builder.Services.AddSingleton<IngestionQueue>();
 builder.Services.AddHostedService<IngestionWorker>();
 builder.Services.Configure<MinerUOptions>(builder.Configuration.GetSection("MinerU"));
 builder.Services.AddSingleton<IDocumentParser, MinerUParser>();
+builder.Services.AddSingleton<FigureExtractor>();
 
 var app = builder.Build();
 

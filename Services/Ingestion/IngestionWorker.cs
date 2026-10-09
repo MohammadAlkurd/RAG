@@ -4,7 +4,8 @@ namespace RAG.Services.Ingestion;
 
 public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
     ILogger<IngestionWorker> logger,
-    IDocumentParser parser) :BackgroundService
+    IDocumentParser parser,
+    FigureExtractor figures) :BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -26,6 +27,8 @@ public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
                     var progress = new Progress<string>(p => status.Set(IngestionState.Ocr, p));
                     await parser.ConvertToMarkdownAsync(job.FilePath, mdPath, progress, stoppingToken);
                 }
+                status.Set(IngestionState.Ocr, "Extracting figures");
+                await figures.ExtractAsync(job.ContentHash, stoppingToken);
                 status.Set(IngestionState.Chunking);
                 await Task.Delay(1000, stoppingToken);
                 status.Set(IngestionState.Embedding);
@@ -33,6 +36,7 @@ public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
                 status.Set(IngestionState.Indexing);
                 await Task.Delay(1000, stoppingToken);
                 
+                File.Move(job.FilePath, DocumentPaths.SourcePdf(job.ContentHash), overwrite: true);          
                 status.Set(IngestionState.Ready);
                 logger.LogInformation("Job {JobId} {File} completed", job.JobId, job.OriginalFileName);
             }
