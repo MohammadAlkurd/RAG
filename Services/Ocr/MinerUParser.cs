@@ -1,10 +1,46 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Options;
 
 namespace RAG.Services.Ocr;
 
-public class MinerUParser(ILogger<MinerUParser> logger,IOptions<MinerUOptions> options ) : IDocumentParser
+public partial class MinerUParser(ILogger<MinerUParser> logger,IOptions<MinerUOptions> options ) : IDocumentParser
 {
+    [GeneratedRegex(@"window (\d+)/(\d+): pages (\d+)-(\d+)/(\d+)")]
+    private static partial Regex WindowRegex();
+    private async Task<string> UpdateMinerUProgress(Process process,IProgress<string>? progress,CancellationToken ct)
+    {
+        var tail = new Queue<string>();
+        string? line;
+        Stopwatch? clock = null;
+        while (( line = await process.StandardError.ReadLineAsync(ct)) != null)
+        { 
+            tail.Enqueue(line);
+            if( tail.Count > 50)
+                tail.Dequeue();
+            var m = WindowRegex().Match(line);
+            if (m.Success)
+            {
+                var from  = int.Parse(m.Groups[3].Value);
+                var to    = int.Parse(m.Groups[4].Value);
+                var total = int.Parse(m.Groups[5].Value);
+
+                clock ??= Stopwatch.StartNew();         
+                var done = from - 1;
+
+                var text = $"pages {from}-{to}/{total}";
+                if (done > 0)
+                {
+                    var perPage = clock.Elapsed / done;  
+                    var eta = perPage * (total - done);  
+                    text += $", ~{eta.TotalMinutes:F0} min left";
+                }
+                progress?.Report(text);       }
+        }
+
+        return string.Join('\n', tail);
+    }
+
     /// <summary>
     /// Runs MinerU on a PDF and writes Markdown with LaTeX formulas.
     /// </summary>
@@ -13,7 +49,8 @@ public class MinerUParser(ILogger<MinerUParser> logger,IOptions<MinerUOptions> o
     /// <param name="ct">Cancels the run and kills the MinerU process.</param>
     /// <returns>Full path of the generated <c>.md</c> file.</returns>
     /// <exception cref="InvalidOperationException">MinerU exited with a non-zero code or produced no Markdown.</exception>
-    public async Task<string> ConvertToMarkdownAsync(string pdfPath, string outputMdPath, CancellationToken ct)
+
+    public async Task<string> ConvertToMarkdownAsync(string pdfPath, string outputMdPath,IProgress<string>? progress, CancellationToken ct)
     {
         var outputDir = Path.GetDirectoryName(outputMdPath)!;
         Directory.CreateDirectory(outputDir);//Ensures the output directory exists
@@ -35,9 +72,9 @@ public class MinerUParser(ILogger<MinerUParser> logger,IOptions<MinerUOptions> o
 
         using var process = Process.Start(psi)!;
 
-        var stdoutTask = process.StandardOutput.ReadToEndAsync();
-        var stderrTask = process.StandardError.ReadToEndAsync();
-
+        var stdoutTask = process.StandardOutput.ReadToEndAsync(ct);
+        var stderrTask = UpdateMinerUProgress(process,progress,ct);
+        
         try
         {
             await process.WaitForExitAsync(ct);

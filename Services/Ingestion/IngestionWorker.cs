@@ -17,12 +17,15 @@ public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
                 
                 status.Set(IngestionState.UnloadingLlm);
                 await Task.Delay(1000, stoppingToken);
-                status.Set(IngestionState.Ocr);
+                status.Set(IngestionState.Ocr ,"Loading OCR model");
                 var mdPath = DocumentPaths.Markdown(job.ContentHash);
                 if (File.Exists(mdPath))
                     logger.LogInformation("OCR cached for {Hash}", job.ContentHash);
                 else
-                    await parser.ConvertToMarkdownAsync(job.FilePath, mdPath, stoppingToken);
+                {
+                    var progress = new Progress<string>(p => status.Set(IngestionState.Ocr, p));
+                    await parser.ConvertToMarkdownAsync(job.FilePath, mdPath, progress, stoppingToken);
+                }
                 status.Set(IngestionState.Chunking);
                 await Task.Delay(1000, stoppingToken);
                 status.Set(IngestionState.Embedding);
@@ -30,9 +33,7 @@ public class IngestionWorker(IngestionQueue queue,IngestionStatus status ,
                 status.Set(IngestionState.Indexing);
                 await Task.Delay(1000, stoppingToken);
                 
-                
                 status.Set(IngestionState.Ready);
-                
                 logger.LogInformation("Job {JobId} {File} completed", job.JobId, job.OriginalFileName);
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
