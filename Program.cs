@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
+using RAG.Services.Chunking;
+using RAG.Services.Indexing;
 using RAG.Services.Ingestion;
 using RAG.Services.Ocr;
+using RAG.Services.Ollama;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,11 @@ builder.Services.AddHostedService<IngestionWorker>();
 builder.Services.Configure<MinerUOptions>(builder.Configuration.GetSection("MinerU"));
 builder.Services.AddSingleton<IDocumentParser, MinerUParser>();
 builder.Services.AddSingleton<FigureExtractor>();
+builder.Services.AddSingleton<MarkdownChunker>();
+builder.Services.Configure<OllamaOptions>(builder.Configuration.GetSection("Ollama"));
+builder.Services.AddHttpClient<OllamaClient>();
+builder.Services.Configure<QdrantOptions>(builder.Configuration.GetSection("Qdrant"));
+builder.Services.AddSingleton<QdrantIndexer>();
 
 var app = builder.Build();
 

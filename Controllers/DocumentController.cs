@@ -10,8 +10,11 @@ namespace RAG.Controllers;
 [Route("[controller]")]
 public class DocumentController(IngestionStatus status , IngestionQueue queue) :ControllerBase
 {
+    private const long MaxUploadBytes = 1L << 30; // 1 GB: scanned textbooks easily exceed the 30 MB default
 
     [HttpPost]
+    [RequestSizeLimit(MaxUploadBytes)]
+    [RequestFormLimits(MultipartBodyLengthLimit = MaxUploadBytes)]
     public async Task<ActionResult> AddDocument(IFormFile file)
     {
         if (status.IsBusy) return Conflict("Ingestion already running");

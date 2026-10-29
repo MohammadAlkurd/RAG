@@ -8,4 +8,5 @@ public static class DocumentPaths
     public static string Dir(string hash) => Path.Combine("data", "markdown", hash);
     public static string Markdown(string hash) => Path.Combine(Dir(hash), $"{hash}.md"); 
     public static string ImagesDir(string hash) => Path.Combine(Dir(hash), "images");
+    public static string Chunks(string hash) => Path.Combine(Dir(hash), "chunks.json");
 }
