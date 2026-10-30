@@ -2,11 +2,7 @@
 
 A self-hosted retrieval-augmented generation (RAG) backend for STEM textbook PDFs, written in C# on ASP.NET Core (.NET 10).
 
-> **Status: working MVP.** Upload, validation, queueing, job-status reporting, **OCR to Markdown + LaTeX (via MinerU)**, **chunking**, **embeddings (Ollama)** and **indexing (Qdrant)** work today. Questions are answered by a short Python script that retrieves the relevant chunks and sends them to a local LLM. There's no question-answering API endpoint yet.
-
-## About this project
-
-This is a learning project. I'm building it to learn how RAG pipelines work and to get hands-on with C#, .NET and background services in ASP.NET Core. I might keep experimenting with it, so things can change.
+> **Status: working MVP.** Upload, validation, queueing, job-status reporting, **OCR to Markdown + LaTeX (via MinerU)**, **chunking**, **embeddings (Ollama)** and **indexing (Qdrant)** are implemented. Questions are currently answered by `scripts/ask.py`; a question-answering API endpoint is on the roadmap.
 
 ## What works today
 
@@ -274,16 +270,9 @@ Don't ask questions while an ingestion job is running. The GPU is shared, and th
 
 ## Roadmap
 
-- [x] OCR to Markdown + LaTeX (MinerU)
-- [x] OCR page progress in the status endpoint
-- [x] Extract embedded figures into image files
-- [x] Heading-based chunking (merge small sections, cut large ones)
 - [ ] Structure-aware chunking (chapters, sections, equations, figure links)
-- [x] Embedding generation with a local model (Ollama, `qwen3-embedding:0.6b`)
-- [x] Vector indexing in Qdrant (uploading a book again replaces its points)
 - [ ] Skip embedding for books that are already in the index
 - [ ] Overwrite / re-index option for books that were already processed
-- [x] Retrieval + answer generation with the used headings as sources (`scripts/ask.py`)
 - [ ] The same as an API endpoint, refusing requests while an ingestion job runs
 - [ ] Better retrieval on long sections (smaller chunks, reranking): chunks of up to 800 words can rank below short, generic ones such as exercise lists
 - [ ] Optional figure descriptions with a vision model (e.g. Qwen3.5), written into the image alt text
