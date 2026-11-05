@@ -13,7 +13,7 @@ A self-hosted retrieval-augmented generation (RAG) backend for STEM textbook PDF
   - rewinds the stream so the caller can still persist the file afterwards
 - **Background ingestion.** Valid files are saved to `data/uploads/{jobId}.pdf` and handed to a `BackgroundService` worker through a bounded `System.Threading.Channels` queue. When the job finishes, the upload is moved to `data/markdown/<hash>/source.pdf`, so each book is stored once no matter how often it's uploaded.
 - **OCR with [MinerU](https://github.com/opendatalab/MinerU).** The worker runs `mineru-kit` as a child process and converts the PDF to Markdown, with formulas preserved as LaTeX.
-- **OCR progress.** MinerU's log is read line by line while it runs. The status shows the page window being processed and an estimate of the time left, e.g. `pages 65-128/347, ~3 min left`.
+- **OCR progress.** MinerU's log is read line by line while it runs. The status shows the page window being processed and an estimate of the time left.
 - **Figure extraction.** MinerU embeds figures as base64 images, which made up about 75% of the Markdown. `FigureExtractor` writes each one to `images/fig-0001.jpg`, `fig-0002.jpg`, … and replaces it with a relative link (`![](images/fig-0001.jpg)`), so the text can reference figures by name.
 - **Content-hash caching.** Every upload is hashed (SHA-256). The Markdown is stored at `data/markdown/<hash>/<hash>.md`. If that file already exists, the OCR stage is skipped, so re-uploading a book only re-runs the later stages.
 - **Chunking.** `MarkdownChunker` splits the Markdown at headings, merges sections under 30 words into the next one and cuts sections over 800 words at paragraph boundaries. Each chunk starts with its heading. The chunks are written to `data/markdown/<hash>/chunks.json`.
@@ -248,7 +248,6 @@ curl -F "file=@textbook.pdf" http://localhost:5082/Document
 
 # Check progress
 curl http://localhost:5082/Document/status
-# → {"state":"Ocr","fileName":"textbook.pdf","progress":"pages 65-128/347, ~3 min left","error":null}
 ```
 
 When the job reaches `Ready`, the Markdown is in `data/markdown/<hash>/<hash>.md`, its figures are in `data/markdown/<hash>/images/` and the chunks are indexed in Qdrant (dashboard: `http://localhost:6333/dashboard`). If the job fails, `error` contains the reason. For OCR failures, that's the end of MinerU's error output.
