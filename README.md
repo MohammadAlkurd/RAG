@@ -24,6 +24,19 @@ A self-hosted retrieval-augmented generation (RAG) backend for STEM textbook PDF
 - **Job status.** `GET /Document/status` returns the current state of the ingestion job, with enum values serialized as strings.
 - **OpenAPI + Scalar** API reference UI in the Development environment. The link is printed in the log at startup.
 
+## Results
+
+Tested on a 347-page STEM textbook on an RTX 4060 Ti (8 GB VRAM):
+
+| Stage | Result |
+|---|---|
+| OCR (MinerU, basic tier) | ~4.5 min (~1.3 pages/s), peak VRAM ~3.5 GB |
+| Chunking | 1,322 chunks |
+| Embedding + indexing | ~2.5 min |
+| Answering a question (thinking off) | 30–45 s |
+
+Not measured yet: retrieval accuracy.
+
 ## Architecture
 
 ```
