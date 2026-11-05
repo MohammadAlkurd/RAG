@@ -1,0 +1,983 @@
+{
+ "judge": "Devin (LLM) read the top 5 retrieved chunks for each question; single pass, not human-reviewed",
+ "criteria": "full = one retrieved chunk alone contains what is needed to answer the question; partial = only part of it; none = nothing useful in the top 5",
+ "summary": {
+  "questions": 60,
+  "full": 38,
+  "partial": 14,
+  "none": 8,
+  "strict_full_only": {
+   "hit@1": 0.317,
+   "hit@3": 0.533,
+   "hit@5": 0.633
+  },
+  "lenient_full_or_partial": {
+   "hit@1": 0.417,
+   "hit@3": 0.7,
+   "hit@5": 0.867
+  },
+  "mrr_full_only": 0.432
+ },
+ "rows": [
+  {
+   "id": 0,
+   "question": "Interpretation of $\\epsilon$-$\\delta$ limit definition",
+   "source": "https://math.stackexchange.com/questions/450967/interpretation-of-epsilon-delta-limit-definition",
+   "votes": 19,
+   "retrieved_top5": [
+    "Examples: Testing the Definition",
+    "Definition of Limit",
+    "Using the Formal Definition",
+    "2.3 > The Precise Definition of a Limit",
+    "EXAMPLE 3 Prove the following results presented graphically in Section 2.2."
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Definition of Limit chunk explains the delta-epsilon idea"
+  },
+  {
+   "id": 1,
+   "question": "Struggling to understand epsilon-delta",
+   "source": "https://math.stackexchange.com/questions/2071159/struggling-to-understand-epsilon-delta",
+   "votes": 14,
+   "retrieved_top5": [
+    "Finding Deltas Graphically",
+    "Finding Deltas Algebraically",
+    "Using the Formal Definition",
+    "Section 2.3, pp. 63–66",
+    "Finding Deltas Algebraically for Given Epsilons"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 5,
+   "reason": "Only rank 5 (worked example with explanation); ranks 1-4 are exercise lists and answers"
+  },
+  {
+   "id": 2,
+   "question": "Delta epsilon proof with $x \\rightarrow \\infty$",
+   "source": "https://math.stackexchange.com/questions/413988/delta-epsilon-proof-with-x-rightarrow-infty",
+   "votes": 11,
+   "retrieved_top5": [
+    "EXAMPLE 3 Prove the following results presented graphically in Section 2.2.",
+    "Using the Formal Definition",
+    "Finite Limits as x→ ±∞",
+    "Using the Formal Definitions",
+    "DEFINITIONS"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Chunk says 'Here are precise definitions' but the definitions are in a separate, unretrieved chunk"
+  },
+  {
+   "id": 3,
+   "question": "Intuition for the derivative of the exponential function",
+   "source": "https://math.stackexchange.com/questions/3394315/intuition-for-the-derivative-of-the-exponential-function",
+   "votes": 16,
+   "retrieved_top5": [
+    "7.3 > Exponential Functions",
+    "The Derivative and Integral of $\\frac { \\partial \\mathcal { E } } { \\partial \\rho }$",
+    "The Derivative of $前 ^{ 前 }$",
+    "Trigonometric Functions > Exponential and Logarithmic Functions",
+    "EXAMPLE 4 Differentiate $f(x) = x^{x},x > 0.$"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Derivative of e^x derived via the inverse relationship"
+  },
+  {
+   "id": 4,
+   "question": "Chain Rule Intuition",
+   "source": "https://math.stackexchange.com/questions/62614/chain-rule-intuition",
+   "votes": 59,
+   "retrieved_top5": [
+    "The Chain Rule",
+    "“Outside-Inside\" Rule",
+    "Proof of the Chain Rule",
+    "Intuitive “Proof\" of the Chain Rule:",
+    "Substitution: Running the Chain Rule Backwards"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Outside-inside rule in words, plus the intuitive proof at rank 4"
+  },
+  {
+   "id": 5,
+   "question": "Intuition behind chain rule",
+   "source": "https://math.stackexchange.com/questions/725951/intuition-behind-chain-rule",
+   "votes": 16,
+   "retrieved_top5": [
+    "“Outside-Inside\" Rule",
+    "The Chain Rule",
+    "Proof of the Chain Rule",
+    "Intuitive “Proof\" of the Chain Rule:",
+    "Substitution: Running the Chain Rule Backwards"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Outside-inside rule in words"
+  },
+  {
+   "id": 6,
+   "question": "U-Substitution Intuition",
+   "source": "https://math.stackexchange.com/questions/3114746/u-substitution-intuition",
+   "votes": 8,
+   "retrieved_top5": [
+    "Substitution: Running the Chain Rule Backwards",
+    "The Substitution Formula",
+    "The Substitution Formula",
+    "Substitution: Running the Chain Rule Backwards",
+    "Substitution: Running the Chain Rule Backwards"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Substitution as the chain rule run backwards"
+  },
+  {
+   "id": 7,
+   "question": "A question about differentiating equations that are impossible to solve for a variable",
+   "source": "https://math.stackexchange.com/questions/2167505/a-question-about-differentiating-equations-that-are-impossible-to-solve-for-a-va",
+   "votes": 48,
+   "retrieved_top5": [
+    "Separable Differential Equations",
+    "Implicitly Defined Functions",
+    "Implicit Differentiation",
+    "Exercises 9.2 > First-Order Linear Equations",
+    "Solutions, Slope Fields, and Euler's Method"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Steps of implicit differentiation at rank 3; rank 1 is separable-equation exercises"
+  },
+  {
+   "id": 8,
+   "question": "What's exactly the deal with differentials? (Confessions of a desperate calculus student)",
+   "source": "https://math.stackexchange.com/questions/1547991/whats-exactly-the-deal-with-differentials-confessions-of-a-desperate-calculus",
+   "votes": 14,
+   "retrieved_top5": [
+    "Linearization and Differentials",
+    "EXAMPLE 4",
+    "Differentials",
+    "Estimating with Differentials",
+    "Chapter3 > Questions to Guide Your Review"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Definition of differentials, stating dy/dx is not a ratio"
+  },
+  {
+   "id": 9,
+   "question": "Intuition behind arc length formula",
+   "source": "https://math.stackexchange.com/questions/27914/intuition-behind-arc-length-formula",
+   "votes": 14,
+   "retrieved_top5": [
+    "The Arc Length Differential",
+    "The Differential Formula for Arc Length",
+    "Arc Length",
+    "Theory and Examples",
+    "[other book] 1. FUNDAMENTAL THEOREMS"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Arc length definition and formula"
+  },
+  {
+   "id": 10,
+   "question": "Why does Newton's method work?",
+   "source": "https://math.stackexchange.com/questions/350740/why-does-newtons-method-work",
+   "votes": 43,
+   "retrieved_top5": [
+    "Newton's Method",
+    "Procedure for Newton's Method",
+    "Newton's Method",
+    "Theory and Examples",
+    "Theory and Examples"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Procedure chunk explains the tangent-line idea"
+  },
+  {
+   "id": 11,
+   "question": "Why does the Newton-Raphson method not converge for some functions?",
+   "source": "https://math.stackexchange.com/questions/2407659/why-does-the-newton-raphson-method-not-converge-for-some-functions",
+   "votes": 42,
+   "retrieved_top5": [
+    "Convergence of the Approximations",
+    "Theory and Examples",
+    "Newton's Method",
+    "Newton's Method",
+    "Theory and Examples"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Convergence chunk with the figure where Newton's method cycles"
+  },
+  {
+   "id": 12,
+   "question": "What is the difference between an indefinite integral and an antiderivative?",
+   "source": "https://math.stackexchange.com/questions/586107/what-is-the-difference-between-an-indefinite-integral-and-an-antiderivative",
+   "votes": 57,
+   "retrieved_top5": [
+    "Indefinite Integrals",
+    "Indefinite Integrals and the Substitution Method",
+    "Exercises 4.7 > Finding Antiderivatives > Finding Indefinite Integrals",
+    "Finding Indefinite Integrals",
+    "Antiderivatives"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Definition: indefinite integral = collection of all antiderivatives"
+  },
+  {
+   "id": 13,
+   "question": "Ways to evaluate $\\int \\sec \\theta \\, \\mathrm d \\theta$",
+   "source": "https://math.stackexchange.com/questions/6695/ways-to-evaluate-int-sec-theta-mathrm-d-theta",
+   "votes": 122,
+   "retrieved_top5": [
+    "Definite Integrals",
+    "Integrating Square Roots",
+    "Powers of Tangents and Secants",
+    "TABLE 8.1 Basic integration formulas",
+    "Trigonometric Integrals"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 4,
+   "reason": "Only the table entry for the integral of sec x; no derivation or 'ways'"
+  },
+  {
+   "id": 14,
+   "question": "How do I know which method of revolution to use for finding volume in Calculus?",
+   "source": "https://math.stackexchange.com/questions/164256/how-do-i-know-which-method-of-revolution-to-use-for-finding-volume-in-calculus",
+   "votes": 13,
+   "retrieved_top5": [
+    "Summary of the Shell Method",
+    "Chapter 6 Questions to Guide Your Review",
+    "Solids of Revolution: The Washer Method",
+    "Solids of Revolution: The Disk Method",
+    "Choosing the Washer Method or Shell Method"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 5,
+   "reason": "Choosing the Washer or Shell Method chunk is rank 5"
+  },
+  {
+   "id": 15,
+   "question": "Why is surface area not simply $2 \\pi \\int_{a}^{b} (y) dx$ instead of $2 \\pi \\int_a^b (y \\cdot \\sqrt{1 + y'^2}) dx$?",
+   "source": "https://math.stackexchange.com/questions/1691147/why-is-surface-area-not-simply-2-pi-int-ab-y-dx-instead-of-2-pi-in",
+   "votes": 19,
+   "retrieved_top5": [
+    "Defining Surface Area",
+    "Areas of Surfaces of Revolution",
+    "Revolution About the y-Axis",
+    "Applications",
+    "Area of Surface of Revolution for Parametrized Curves"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Frustum sum with the sqrt(dx^2+dy^2) factor"
+  },
+  {
+   "id": 16,
+   "question": "Calculate the surface area of a solid of revolution",
+   "source": "https://math.stackexchange.com/questions/13035/calculate-the-surface-area-of-a-solid-of-revolution",
+   "votes": 6,
+   "retrieved_top5": [
+    "Areas of Surfaces of Revolution",
+    "Surface Areas",
+    "Surface Area",
+    "Defining Surface Area",
+    "Area of Surface of Revolution for Parametrized Curves"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 4,
+   "reason": "Defining Surface Area chunk with the formula"
+  },
+  {
+   "id": 17,
+   "question": "How can we come up with the definition of natural logarithm?",
+   "source": "https://math.stackexchange.com/questions/2678805/how-can-we-come-up-with-the-definition-of-natural-logarithm",
+   "votes": 36,
+   "retrieved_top5": [
+    "Definition of the Natural Logarithm Function",
+    "Natural Logarithms",
+    "EXAMPLE 2",
+    "Properties of Logarithms",
+    "The Inverse of ln x and the Number e"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "ln x defined as an integral"
+  },
+  {
+   "id": 18,
+   "question": "Prove that the directrix-focus and focus-focus definitions are equivalent",
+   "source": "https://math.stackexchange.com/questions/1833973/prove-that-the-directrix-focus-and-focus-focus-definitions-are-equivalent",
+   "votes": 15,
+   "retrieved_top5": [
+    "Section 11.7, pp. 653–654",
+    "DEFINITION",
+    "Parabolas",
+    "DEFINITION",
+    "Eccentricities and Directrices"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 3,
+   "reason": "Definitions of conics with focus/directrix and eccentricity, but no equivalence proof"
+  },
+  {
+   "id": 19,
+   "question": "Separable differential equations: detaching dy/dx",
+   "source": "https://math.stackexchange.com/questions/2142783/separable-differential-equations-detaching-dy-dx",
+   "votes": 40,
+   "retrieved_top5": [
+    "Separable Differential Equations",
+    "Separable Differential Equations",
+    "Exercises 9.2 > First-Order Linear Equations",
+    "Homogeneous Equations",
+    "Implicit Differentiation"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Separable Differential Equations explanation"
+  },
+  {
+   "id": 20,
+   "question": "Differential equations: how does separation of variables really work?",
+   "source": "https://math.stackexchange.com/questions/1525791/differential-equations-how-does-separation-of-variables-really-work",
+   "votes": 19,
+   "retrieved_top5": [
+    "Separable Differential Equations",
+    "Separable Differential Equations",
+    "Homogeneous Equations",
+    "Exercises 9.2 > First-Order Linear Equations",
+    "FIRST-ORDER DIFFERENTIAL EQUATIONS"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Separable Differential Equations explanation"
+  },
+  {
+   "id": 21,
+   "question": "Exponential growth/decay formula: what happened to the other constant of integration?",
+   "source": "https://math.stackexchange.com/questions/3135303/exponential-growth-decay-formula-what-happened-to-the-other-constant-of-integra",
+   "votes": 5,
+   "retrieved_top5": [
+    "Exponential Change",
+    "7.4 > Exponential Change and Separable Differential Equations",
+    "Exponential and Logarithmic Forms",
+    "Solving Initial Value Problems",
+    "Additional and Advanced Exercises, pp. 530-531"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Derivation with ln|y| = kt + C, A = +-e^C"
+  },
+  {
+   "id": 22,
+   "question": "Characterization of solutions to $f' = f(1-f)$",
+   "source": "https://math.stackexchange.com/questions/2633277/characterization-of-solutions-to-f-f1-f",
+   "votes": 6,
+   "retrieved_top5": [
+    "[other book] EXERCISES",
+    "Exercises 9.5",
+    "EXAMPLE 2 Show that the function",
+    "Exercises 7.4 > Verifying Solutions",
+    "General First-Order Differential Equations and Solutions"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Nothing on the logistic equation; Ahlfors exercises, ODE-verification exercises"
+  },
+  {
+   "id": 23,
+   "question": "Why does L'Hopital's rule fail in calculating $\\lim_{x \\to \\infty} \\frac{x}{x+\\sin(x)}$?",
+   "source": "https://math.stackexchange.com/questions/1710786/why-does-lhopitals-rule-fail-in-calculating-lim-x-to-infty-fracxx-s",
+   "votes": 137,
+   "retrieved_top5": [
+    "Applying l'Hôpital's Rule",
+    "Applying L'Hôpital's Rule",
+    "Indeterminate Forms ∝ $1 0 0 , 0 0 0 0 , 0 0 0 = 0 0$",
+    "Caution",
+    "Exercises 7.5 > Finding Limits in Two Ways"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Only exercise lists and the Caution chunk; the 'limit of f'/g' must exist' condition is not retrieved"
+  },
+  {
+   "id": 24,
+   "question": "The Intuition behind l'Hopitals Rule",
+   "source": "https://math.stackexchange.com/questions/584889/the-intuition-behind-lhopitals-rule",
+   "votes": 84,
+   "retrieved_top5": [
+    "L'Hôpital's Rule",
+    "Caution",
+    "Indeterminate Forms and L'Hôpital's Rule",
+    "EXAMPLE 7 Apply l'Hôpital's Rule to show that 1 $\\lim_{x \\to 0^{+}} (1 + x)^{1/x} = e$",
+    "Indeterminate Forms ∝ $1 0 0 , 0 0 0 0 , 0 0 0 = 0 0$"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "States the rule, but not intuition"
+  },
+  {
+   "id": 25,
+   "question": "When to Stop Using L'Hôpital's Rule",
+   "source": "https://math.stackexchange.com/questions/461120/when-to-stop-using-lh%c3%b4pitals-rule",
+   "votes": 51,
+   "retrieved_top5": [
+    "Caution",
+    "L'Hôpital's Rule",
+    "Applying L'Hôpital's Rule",
+    "Indeterminate Forms and L'Hôpital's Rule",
+    "Exercises 7.5 > Finding Limits in Two Ways"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "Rule and repeated-use examples, but no explicit stopping criterion"
+  },
+  {
+   "id": 26,
+   "question": "Is there a geometric intuition for integration by parts?",
+   "source": "https://math.stackexchange.com/questions/3752680/is-there-a-geometric-intuition-for-integration-by-parts",
+   "votes": 38,
+   "retrieved_top5": [
+    "Integration by Parts",
+    "Chapter 8 > Questions to Guide Your Review",
+    "Evaluating Definite Integrals by Parts",
+    "Product Rule in Integral Form",
+    "Tabular Integration"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 4,
+   "reason": "Product-rule derivation of the formula, but no geometric intuition"
+  },
+  {
+   "id": 27,
+   "question": "Absolute value in trigonometric substitutions",
+   "source": "https://math.stackexchange.com/questions/1875305/absolute-value-in-trigonometric-substitutions",
+   "votes": 9,
+   "retrieved_top5": [
+    "Trigonometric Substitutions",
+    "Trigonometric Substitutions",
+    "Procedure For a Trigonometric Substitution",
+    "EXERCISES 8.3 > Using Trigonometric Substitutions",
+    "EXAMPLE 1 Evaluate"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "sqrt(a^2+x^2)=a|sec t| and the angle-range restrictions"
+  },
+  {
+   "id": 28,
+   "question": "Centroid of a 2D region integral explanation",
+   "source": "https://math.stackexchange.com/questions/136427/centroid-of-a-2d-region-integral-explanation",
+   "votes": 1,
+   "retrieved_top5": [
+    "Centroids",
+    "EXAMPLE 7 Locate the centroid of a semicircular region of radius a.",
+    "Plates Bounded by Two Curves",
+    "5 INTEGRATION",
+    "Centers of Mass and Centroids"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Only exercise lists and one semicircle example; no explanation of the centroid integrals"
+  },
+  {
+   "id": 29,
+   "question": "How can the center of mass of a region with density $d[x, y]$ be understood as as a kind of (average x-value, average y-value)?",
+   "source": "https://math.stackexchange.com/questions/3934640/how-can-the-center-of-mass-of-a-region-with-density-dx-y-be-understood-as-a",
+   "votes": 2,
+   "retrieved_top5": [
+    "Thin, Flat Plates",
+    "Exercises 6.6 > Thin Plates with Constant Density",
+    "Plates Bounded by Two Curves",
+    "Thin Plates with Varying Density",
+    "Centers of Mass and Centroids"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Thin, Flat Plates chunk explains the moment/mass integrals"
+  },
+  {
+   "id": 30,
+   "question": "Example of a calculus optimization problem where the answer occurs at an endpoint",
+   "source": "https://math.stackexchange.com/questions/3413977/example-of-a-calculus-optimization-problem-where-the-answer-occurs-at-an-endpoin",
+   "votes": 1,
+   "retrieved_top5": [
+    "COMPUTER EXPLORATIONS",
+    "Solving Applied Optimization Problems",
+    "Finding Extrema",
+    "Applied Optimization",
+    "Additional and Advanced Exercises, pp. 243-245"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Examples where the extrema occur at endpoints (8t-t^4 on [-2,1], x^(2/3) on [-2,3])"
+  },
+  {
+   "id": 31,
+   "question": "How does partial fraction decomposition avoid division by zero?",
+   "source": "https://math.stackexchange.com/questions/165118/how-does-partial-fraction-decomposition-avoid-division-by-zero",
+   "votes": 30,
+   "retrieved_top5": [
+    "Method of Partial Fractions (f(x)/g(x) Proper)",
+    "Heaviside Method",
+    "Eliminating Zero Denominators Algebraically",
+    "EXAMPLE 2 Use partial fractions to evaluate",
+    "EXAMPLE 1 Use partial fractions to evaluate"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 2,
+   "reason": "Heaviside cover-up and clear-fractions examples, but no 'why no division by zero'"
+  },
+  {
+   "id": 32,
+   "question": "Proving error bound on Simpson's Rule, Numerical Integration",
+   "source": "https://math.stackexchange.com/questions/1759326/proving-error-bound-on-simpsons-rule-numerical-integration",
+   "votes": 9,
+   "retrieved_top5": [
+    "Error Analysis",
+    "II. Using Simpson's Rule",
+    "Error Analysis",
+    "EXAMPLE 2 Use Simpson's Rule with $n = 4$ to approximate $\\int_{0}^{2} 5x^{4}   dx$",
+    "Numerical Integration"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "States the error bound, but no proof"
+  },
+  {
+   "id": 33,
+   "question": "Convergence of $\\int_0^1 \\sin\\frac{1}{x} \\;\\mathrm{dx}$",
+   "source": "https://math.stackexchange.com/questions/658664/convergence-of-int-01-sin-frac1x-mathrmdx",
+   "votes": 5,
+   "retrieved_top5": [
+    "Exercises 8.7 > Evaluating Improper Integrals",
+    "Nonelementary Integrals",
+    "Exercises 8.7 > Evaluating Improper Integrals",
+    "COMPUTER EXPLORATIONS",
+    "Infinite Limits of Integration"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "No comparison/vertical-asymptote test retrieved; exercise lists only"
+  },
+  {
+   "id": 34,
+   "question": "Need to prove the sequence $a_n=1+\\frac{1}{2^2}+\\frac{1}{3^2}+\\cdots+\\frac{1}{n^2}$ converges",
+   "source": "https://math.stackexchange.com/questions/333417/need-to-prove-the-sequence-a-n-1-frac122-frac132-cdots-frac1n",
+   "votes": 29,
+   "retrieved_top5": [
+    "Determining Convergence of Series",
+    "Chapter 10 Additional and Advanced Exercises",
+    "Convergence and Divergence",
+    "CHAPTER 10 > Section 10.1, pp. 541–544",
+    "Section 10.2, pp. 551–552"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "No integral test or p-series retrieved; exercise lists and answers only"
+  },
+  {
+   "id": 35,
+   "question": "How can I determine which series comparison test to use?",
+   "source": "https://math.stackexchange.com/questions/172478/how-can-i-determine-which-series-comparison-test-to-use",
+   "votes": 9,
+   "retrieved_top5": [
+    "Exercises 10.4 > Comparison Test",
+    "The Limit Comparison Test",
+    "Section 10.4, pp. 562–563",
+    "Additional and Advanced Exercises, pp. 607-609",
+    "EXAMPLE 1 We apply Theorem 10 to several series."
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 2,
+   "reason": "Limit comparison test, but no guide on choosing a test"
+  },
+  {
+   "id": 36,
+   "question": "Convergence\\Divergence of $\\sum\\limits_{n=1}^{\\infty}\\frac {1\\cdot 3\\cdots (2n-1)} {2\\cdot 4\\cdots (2n)}$",
+   "source": "https://math.stackexchange.com/questions/183768/convergence-divergence-of-sum-limits-n-1-infty-frac-1-cdot-3-cdots-2n-1",
+   "votes": 19,
+   "retrieved_top5": [
+    "Convergence or Divergence",
+    "Determining Convergence or Divergence",
+    "Convergent Series",
+    "Determining Convergence or Divergence",
+    "Determining Convergence of Series"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Only exercise lists; the book cannot resolve this series with its tests"
+  },
+  {
+   "id": 37,
+   "question": "How would you show that the series $\\sum_{n=1}^\\infty \\frac{(2n)!}{4^n (n!)^2}$ diverges?",
+   "source": "https://math.stackexchange.com/questions/1887601/how-would-you-show-that-the-series-sum-n-1-infty-frac2n4n-n2",
+   "votes": 17,
+   "retrieved_top5": [
+    "Determining Convergence or Divergence",
+    "Convergence or Divergence",
+    "Exercises 10.5 > Using the Ratio Test",
+    "EXAMPLE 1 The series",
+    "Using the nth-Term Test"
+   ],
+   "verdict": "none",
+   "first_useful_rank": null,
+   "reason": "Only exercise lists and the harmonic series; no ratio-test statement"
+  },
+  {
+   "id": 38,
+   "question": "How much can we rearrange a series?",
+   "source": "https://math.stackexchange.com/questions/3037709/how-much-can-we-rearrange-a-series",
+   "votes": 27,
+   "retrieved_top5": [
+    "Rearranging Series",
+    "[other book] EXERCISES",
+    "Combining Series",
+    "Combining Series",
+    "Reindexing"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Rearranging Series theorem, absolute vs conditional"
+  },
+  {
+   "id": 39,
+   "question": "Why doesn't a Taylor series converge always?",
+   "source": "https://math.stackexchange.com/questions/1308992/why-doesnt-a-taylor-series-converge-always",
+   "votes": 45,
+   "retrieved_top5": [
+    "EXAMPLE 4 It can be shown (though not easily) that",
+    "[other book] EXERCISES",
+    "Convergence of Taylor Series",
+    "Chapter 10 Practice Exercises > Determining Convergence of Sequences",
+    "Taylor's Formula"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Example of a smooth function whose Taylor series does not converge to it"
+  },
+  {
+   "id": 40,
+   "question": "Why don't taylor series represent the entire function?",
+   "source": "https://math.stackexchange.com/questions/721364/why-dont-taylor-series-represent-the-entire-function",
+   "votes": 9,
+   "retrieved_top5": [
+    "[other book] EXERCISES",
+    "Taylor and Maclaurin Series",
+    "EXAMPLE 4 It can be shown (though not easily) that",
+    "[other book] EXERCISES",
+    "10 INFINITE SEQUENCES AND SERIES"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Same example, at rank 3"
+  },
+  {
+   "id": 41,
+   "question": "Why is $\\sin{x} = x -\\frac{x^3}{3!} + \\frac{x^5}{5!} - \\cdots$ for all $x$?",
+   "source": "https://math.stackexchange.com/questions/577676/why-is-sinx-x-fracx33-fracx55-cdots-for-all-x",
+   "votes": 9,
+   "retrieved_top5": [
+    "TABLE 10.1 Frequently used Taylor series",
+    "Section 10.9, pp. 595–596",
+    "Maclaurin Series",
+    "[other book] EXERCISES",
+    "Nonelementary Integrals"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "Table lists the sin x series valid for all x, with no argument why"
+  },
+  {
+   "id": 42,
+   "question": "Understanding Taylor series error function and Lagrange error bound",
+   "source": "https://math.stackexchange.com/questions/3066899/understanding-taylor-series-error-function-and-lagrange-error-bound",
+   "votes": 5,
+   "retrieved_top5": [
+    "COMPUTER EXPLORATIONS",
+    "Taylor's Formula",
+    "Theory and Examples",
+    "Using Taylor Series",
+    "Taylor's Formula"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Taylor's Formula with the remainder term"
+  },
+  {
+   "id": 43,
+   "question": "Area Bounded by Polar Curves",
+   "source": "https://math.stackexchange.com/questions/179453/area-bounded-by-polar-curves",
+   "votes": 7,
+   "retrieved_top5": [
+    "Area in Polar Coordinates",
+    "Areas and Lengths in Polar Coordinates",
+    "EXERCISES 11.5 > Finding Polar Areas",
+    "Area in the Plane",
+    "Area in the Plane"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 4,
+   "reason": "Area in the plane: formula in use"
+  },
+  {
+   "id": 44,
+   "question": "Finding parametric equations for the tangent line at a point on a curve",
+   "source": "https://math.stackexchange.com/questions/23123/finding-parametric-equations-for-the-tangent-line-at-a-point-on-a-curve",
+   "votes": 7,
+   "retrieved_top5": [
+    "Finding Parametric Equations and Tangent Lines",
+    "Exercises 11.2 > Tangents to Parametrized Curves",
+    "Slope of a Curve at a Point",
+    "11.2 > Calculus with Parametric Curves > Tangents and Areas",
+    "Exercises 3.1 > Slopes and Tangent Lines"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 4,
+   "reason": "dy/dx = (dy/dt)/(dx/dt) for parametric curves"
+  },
+  {
+   "id": 45,
+   "question": "Dominoes and Induction, or How Does Induction Work?",
+   "source": "https://math.stackexchange.com/questions/19485/dominoes-and-induction-or-how-does-induction-work",
+   "votes": 71,
+   "retrieved_top5": [
+    "Mathematical Induction",
+    "Other Starting Integers",
+    "2. If",
+    "WEB SITE www.pearsonhighered.com/thomas",
+    "[other book] EXERCISES"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Mathematical induction principle and steps"
+  },
+  {
+   "id": 46,
+   "question": "Euler's identity: why is the $e$ in $e^{ix}$? What if it were some other constant like $2^{ix}$?",
+   "source": "https://math.stackexchange.com/questions/449713/eulers-identity-why-is-the-e-in-eix-what-if-it-were-some-other-constan",
+   "votes": 18,
+   "retrieved_top5": [
+    "Euler's Identity",
+    "Euler's Identity",
+    "Euler's Formula",
+    "[other book] 3. THE EXPONENTIAL AND TRIGONOMETRIC FUNCTIONS",
+    "[other book] EXERCISES"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "Derives e^(i t)=cos t+i sin t from the Taylor series, but nothing on other bases like 2^(ix)"
+  },
+  {
+   "id": 47,
+   "question": "An inflection point where the second derivative doesn't exist?",
+   "source": "https://math.stackexchange.com/questions/402459/an-inflection-point-where-the-second-derivative-doesnt-exist",
+   "votes": 22,
+   "retrieved_top5": [
+    "Points of Inflection",
+    "106. Parabolas",
+    "Sketching the General Shape, Knowing y'",
+    "COMPUTER EXPLORATIONS",
+    "Additional and Advanced Exercises, pp. 243-245"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Inflection points where f'' fails to exist, with the x^(5/3) example"
+  },
+  {
+   "id": 48,
+   "question": "Why is derivative is slope of tangent line?",
+   "source": "https://math.stackexchange.com/questions/717899/why-is-derivative-is-slope-of-tangent-line",
+   "votes": 15,
+   "retrieved_top5": [
+    "Derivatives, Slopes, Tangent Lines, and Making Movies",
+    "Tangents and the Derivative at a Point",
+    "DIFFERENTIATION",
+    "Summary",
+    "Rates of Change: Derivative at a Point"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 2,
+   "reason": "Slope of the tangent as a limit of the difference quotient"
+  },
+  {
+   "id": 49,
+   "question": "Geometric intuition for limit of $\\frac{1-\\cos x}{x}$ as $x \\to 0$",
+   "source": "https://math.stackexchange.com/questions/4330442/geometric-intuition-for-limit-of-frac1-cos-xx-as-x-to-0",
+   "votes": 5,
+   "retrieved_top5": [
+    "Exercises 2.4 > Finding Limits Graphically",
+    "Trigonometric Limits",
+    "sin θ Generalized Limits Involving θ",
+    "Limits Involving (sin θ)/θ",
+    "Calculating Limits"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 4,
+   "reason": "Sandwich-theorem proof and the (cos h - 1)/h example"
+  },
+  {
+   "id": 50,
+   "question": "Why does the Mean Value Theorem require a closed interval for continuity and an open interval for differentiability?",
+   "source": "https://math.stackexchange.com/questions/2317953/why-does-the-mean-value-theorem-require-a-closed-interval-for-continuity-and-an",
+   "votes": 13,
+   "retrieved_top5": [
+    "The Mean Value Theorem",
+    "Section 4.2, pp. 196–198",
+    "13. The function",
+    "Exercises 4.2 > Checking the Mean Value Theorem",
+    "The Mean Value Theorem"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 1,
+   "reason": "MVT hypotheses stated, but no reason why closed/open"
+  },
+  {
+   "id": 51,
+   "question": "Construct a function which is continuous in $[1,5]$ but not differentiable at $2, 3, 4$",
+   "source": "https://math.stackexchange.com/questions/74347/construct-a-function-which-is-continuous-in-1-5-but-not-differentiable-at-2",
+   "votes": 113,
+   "retrieved_top5": [
+    "Differentiability and Continuity on an Interval",
+    "Section 2.5, pp. 82–84",
+    "Exercises 2.5 > Continuity from Graphs",
+    "Differentiable Functions Are Continuous",
+    "Continuity at a Point"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 4,
+   "reason": "Differentiability implies continuity, but no construction of non-differentiable points"
+  },
+  {
+   "id": 52,
+   "question": "Why not include as a requirement that all functions must be continuous to be differentiable?",
+   "source": "https://math.stackexchange.com/questions/2825505/why-not-include-as-a-requirement-that-all-functions-must-be-continuous-to-be-dif",
+   "votes": 97,
+   "retrieved_top5": [
+    "Differentiable Functions Are Continuous",
+    "Differentiability and Continuity on an Interval",
+    "Chapter3 > Questions to Guide Your Review",
+    "Differentiation Rules",
+    "7. Industrial production"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Theorem: differentiable implies continuous"
+  },
+  {
+   "id": 53,
+   "question": "Proof of the derivative of $\\ln(x)$",
+   "source": "https://math.stackexchange.com/questions/1341958/proof-of-the-derivative-of-lnx",
+   "votes": 42,
+   "retrieved_top5": [
+    "The Derivative of $y = \\tan x$",
+    "Finding Derivatives > In Exercises 5–36, find the derivative of y with respect to x, t, or θ, as appropriate.",
+    "EXAMPLE 2",
+    "Logarithmic Differentiation",
+    "Finding Derivatives"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "FTC derivation of d/dx ln x = 1/x (OCR gave the heading 'The Derivative of y = tan x')"
+  },
+  {
+   "id": 54,
+   "question": "What is the conceptual meaning of a definite integral?",
+   "source": "https://math.stackexchange.com/questions/1601570/what-is-the-conceptual-meaning-of-a-definite-integral",
+   "votes": 3,
+   "retrieved_top5": [
+    "Area and Estimating with Finite Sums",
+    "Chapter 5 > Questions to Guide Your Review",
+    "Definition of the Definite Integral",
+    "Definition of the Definite Integral",
+    "Exercises 5.3 > Interpreting Limits as Integrals"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 3,
+   "reason": "Definition of the definite integral as a limit of Riemann sums"
+  },
+  {
+   "id": 55,
+   "question": "How is the derivative truly, literally the \"best linear approximation\" near a point?",
+   "source": "https://math.stackexchange.com/questions/1784262/how-is-the-derivative-truly-literally-the-best-linear-approximation-near-a-po",
+   "votes": 71,
+   "retrieved_top5": [
+    "Linearization",
+    "Applications",
+    "Linearization and Differentials",
+    "Derivatives, Slopes, Tangent Lines, and Making Movies",
+    "Linearization for Approximation"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 2,
+   "reason": "Exercise defines the best-linear-approximation property but doesn't answer it"
+  },
+  {
+   "id": 56,
+   "question": "Is there a geometrical definition of a tangent line?",
+   "source": "https://math.stackexchange.com/questions/959885/is-there-a-geometrical-definition-of-a-tangent-line",
+   "votes": 14,
+   "retrieved_top5": [
+    "Defining the Slope of a Curve",
+    "Finding a Tangent to the Graph of a Function",
+    "Tangents and the Derivative at a Point",
+    "Derivatives, Slopes, Tangent Lines, and Making Movies",
+    "Slopes and Tangents"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Tangent defined as the limit of secants"
+  },
+  {
+   "id": 57,
+   "question": "What connection do the hyperbolic trig functions have to the actual trig functions?",
+   "source": "https://math.stackexchange.com/questions/3329525/what-connection-do-the-hyperbolic-trig-functions-have-to-the-actual-trig-functio",
+   "votes": 1,
+   "retrieved_top5": [
+    "TABLE 7.6 Identities for hyperbolic functions",
+    "Definitions and Identities",
+    "TABLE 7.5 The six basic hyperbolic functions",
+    "7.7 > Hyperbolic Functions",
+    "Derivatives and Integrals of Hyperbolic Functions"
+   ],
+   "verdict": "partial",
+   "first_useful_rank": 5,
+   "reason": "Analogous identities and derivatives, but no explicit connection"
+  },
+  {
+   "id": 58,
+   "question": "What is the intuition behind why the integration of $f(x) = x$ for closed interval of negative to positive infinity diverges, rather than being zero?",
+   "source": "https://math.stackexchange.com/questions/2493443/what-is-the-intuition-behind-why-the-integration-of-fx-x-for-closed-interv",
+   "votes": 15,
+   "retrieved_top5": [
+    "EXAMPLE 2 Evaluate",
+    "Infinite Limits of Integration",
+    "Exercises 8.7 > Evaluating Improper Integrals",
+    "EXAMPLE 4 Investigate the convergence of",
+    "Integrands with Vertical Asymptotes"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Definition of the integral over (-inf, inf) as two separate limits"
+  },
+  {
+   "id": 59,
+   "question": "Taylor series of $\\ln(1+x)$?",
+   "source": "https://math.stackexchange.com/questions/878374/taylor-series-of-ln1x",
+   "votes": 69,
+   "retrieved_top5": [
+    "TABLE 10.1 Frequently used Taylor series",
+    "EXAMPLE 6 The series",
+    "Theory and Examples",
+    "Maclaurin Series",
+    "Exercises 10.9 > Finding Taylor Series"
+   ],
+   "verdict": "full",
+   "first_useful_rank": 1,
+   "reason": "Table of Taylor series with ln(1+x), plus the derivation"
+  }
+ ]
+}

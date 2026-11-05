@@ -35,7 +35,15 @@ Tested on a 347-page STEM textbook on an RTX 4060 Ti (8 GB VRAM):
 | Embedding + indexing | ~2.5 min |
 | Answering a question (thinking off) | 30–45 s |
 
-Not measured yet: retrieval accuracy.
+Retrieval accuracy, measured on 60 real student questions from Math StackExchange against *Thomas' Calculus* (1,322 chunks). A question counts as answered when a retrieved chunk alone contains the information needed to answer it, as judged by an AI assistant (Devin):
+
+| Retrieved chunks | Full answer | Full or partial answer |
+|------------------|-------------|------------------------|
+| Top 1            | 31.7%       | 41.7%                  |
+| Top 3            | 53.3%       | 70.0%                  |
+| **Top 5**        | **63.3%**   | **86.7%**              |
+
+Mean reciprocal rank (full answers): 0.432. Median retrieval time: about 0.2 s per question, with the question embedded on the CPU. Method, per-question verdicts and limitations: [`benchmark/`](benchmark/README.md).
 
 ## Architecture
 
@@ -149,6 +157,9 @@ Services/
     DocumentPaths.cs         single place for all data/ paths (uploads, Markdown, chunks, images, source PDF)
 scripts/
   ask.py                     question → Qdrant → LLM
+benchmark/
+  README.md                  how the retrieval benchmark was run and judged
+  judgments.json             60 questions, retrieved sections and verdicts
 compose.yaml                 Qdrant
 Program.cs                   DI registration and middleware
 ```
@@ -271,6 +282,12 @@ Sources:
 - Thinking is off (`think=False`). With it on, one answer took about 2.5 minutes in testing, against 30–45 s with it off.
 
 Don't ask questions while an ingestion job is running. The GPU is shared, and the job unloads the LLM when it starts.
+
+## Retrieval benchmark
+
+On 60 real questions from Math StackExchange, a retrieved top-5 chunk contains what is needed to answer the question **63.3%** of the time (top 1: 31.7%, top 3: 53.3%), and **86.7%** if partial answers count. The corpus is *Thomas' Calculus* (789 pages, 1322 chunks).
+
+Each retrieved chunk was read and judged by an AI assistant (Devin) for whether it alone contains the information needed to answer the question. This tests retrieval only, not the LLM's answers. The questions, the retrieved sections, every verdict with a reason, the full method and the limitations (single AI judge, not fully human-reviewed) are in [`benchmark/`](benchmark/README.md). The main weakness it found is that exercise-list chunks often outrank the explanations.
 
 ## API
 
