@@ -26,14 +26,14 @@ A self-hosted retrieval-augmented generation (RAG) backend for STEM textbook PDF
 
 ## Results
 
-Tested on a 347-page STEM textbook on an RTX 4060 Ti (8 GB VRAM):
+Pipeline timings on an RTX 4060 Ti (8 GB VRAM):
 
-| Stage | Result |
-|---|---|
-| OCR (MinerU, basic tier) | ~4.5 min (~1.3 pages/s), peak VRAM ~3.5 GB |
-| Chunking | 1,322 chunks |
-| Embedding + indexing | ~2.5 min |
-| Answering a question (thinking off) | 30–45 s |
+| Stage | Book | Result |
+|---|---|---|
+| OCR (MinerU, basic tier) | 347-page textbook | ~4.5 min (~1.3 pages/s), peak VRAM ~3.5 GB |
+| Chunking | *Thomas' Calculus* (789 pages) | 1,322 chunks |
+| Embedding + indexing | *Thomas' Calculus* (789 pages) | ~2.5 min |
+| Answering a question (thinking off) | *Thomas' Calculus* (789 pages) | 30–45 s |
 
 Retrieval accuracy, measured on 60 real student questions from Math StackExchange against *Thomas' Calculus* (1,322 chunks). A question counts as answered when a retrieved chunk alone contains the information needed to answer it, as judged by an AI assistant (Devin):
 
