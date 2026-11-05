@@ -26,14 +26,14 @@ A self-hosted retrieval-augmented generation (RAG) backend for STEM textbook PDF
 
 ## Results
 
-Pipeline timings on an RTX 4060 Ti (8 GB VRAM):
+Pipeline timings on an RTX 4060 Ti (8 GB VRAM), all on the same book:
 
 | Stage | Book | Result |
 |---|---|---|
-| OCR (MinerU, basic tier) | 347-page textbook | ~4.5 min (~1.3 pages/s), peak VRAM ~3.5 GB |
+| OCR (MinerU, basic tier) | *Thomas' Calculus* (789 pages) | ~12.9 min (~1.0 pages/s), peak VRAM ~4.2 GB |
 | Chunking | *Thomas' Calculus* (789 pages) | 1,322 chunks |
 | Embedding + indexing | *Thomas' Calculus* (789 pages) | ~2.5 min |
-| Answering a question (thinking off) | *Thomas' Calculus* (789 pages) | 30–45 s |
+| Answering a question (thinking off) | *Thomas' Calculus* (789 pages) | 17–42 s (3 questions; the slowest includes loading the LLM) |
 
 Retrieval accuracy, measured on 60 real student questions from Math StackExchange against *Thomas' Calculus* (1,322 chunks). A question counts as answered when a retrieved chunk alone contains the information needed to answer it, as judged by an AI assistant (Devin):
 
@@ -211,7 +211,7 @@ MinerU runs as an external process, so it has to be installed separately.
 | `MinerU:Executable` | `mineru-kit` | Full path to the MinerU CLI, or a command name on `PATH` |
 | `MinerU:Tier`       | `basic`      | `flash`, `basic`, `standard` or `advanced`. `standard` crashed on an 8 GB GPU in testing. |
 
-Measured on an RTX 4060 Ti (8 GB) with the `basic` tier: a 347-page textbook took about 4.5 minutes (~1.3 pages/s, model loading included), with peak VRAM around 3.5 GB. Formula-heavy pages are slower, and very short PDFs look slow because loading the models takes about 30 seconds.
+Measured on an RTX 4060 Ti (8 GB) with the `basic` tier: *Thomas' Calculus* (789 pages) took about 12.9 minutes (~1.0 pages/s, model loading included), with peak total VRAM around 4.2 GB (about 2.4 GB above the idle desktop). Formula-heavy pages are slower, and very short PDFs look slow because loading the models takes about 30 seconds.
 
 ### Qdrant and Ollama setup
 
