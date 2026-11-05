@@ -30,7 +30,7 @@ Pipeline timings on an RTX 4060 Ti (8 GB VRAM), all on the same book:
 
 | Stage | Book | Result |
 |---|---|---|
-| OCR (MinerU, basic tier) | *Thomas' Calculus* (789 pages) | ~12.9 min (~1.0 pages/s), peak VRAM ~4.2 GB |
+| OCR (MinerU, basic tier) | *Thomas' Calculus* (789 pages) | ~12.9 min (~1.0 pages/s), peak VRAM ~2.3 GiB |
 | Chunking | *Thomas' Calculus* (789 pages) | 1,322 chunks |
 | Embedding + indexing | *Thomas' Calculus* (789 pages) | ~2.5 min |
 | Answering a question (thinking off) | *Thomas' Calculus* (789 pages) | 17–42 s (3 questions; the slowest includes loading the LLM) |
@@ -211,7 +211,7 @@ MinerU runs as an external process, so it has to be installed separately.
 | `MinerU:Executable` | `mineru-kit` | Full path to the MinerU CLI, or a command name on `PATH` |
 | `MinerU:Tier`       | `basic`      | `flash`, `basic`, `standard` or `advanced`. `standard` crashed on an 8 GB GPU in testing. |
 
-Measured on an RTX 4060 Ti (8 GB) with the `basic` tier: *Thomas' Calculus* (789 pages) took about 12.9 minutes (~1.0 pages/s, model loading included), with peak total VRAM around 4.2 GB (about 2.4 GB above the idle desktop). Formula-heavy pages are slower, and very short PDFs look slow because loading the models takes about 30 seconds.
+Measured on an RTX 4060 Ti (8 GB) with the `basic` tier: *Thomas' Calculus* (789 pages) took about 12.9 minutes (~1.0 pages/s, model loading included), with peak VRAM around 2.3 GiB (2,391 MiB above the idle GPU, sampled every 2 s with `nvidia-smi`). Formula-heavy pages are slower, and very short PDFs look slow because loading the models takes about 30 seconds.
 
 ### Qdrant and Ollama setup
 
